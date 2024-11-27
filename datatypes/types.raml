@@ -15,16 +15,14 @@ types:
       status:
         enum: [active, maintenance, closed]
 
-  StationCreate:
+  StationUpdate:
     type: object
     properties:
-      name: string
-      location:
-        type: object
-        properties:
-          latitude: number
-          longitude: number
-      capacity: number
+      name?: string
+      capacity?: number
+      availableBikes?: number
+      status?:
+        enum: [active, maintenance, closed]
 
   Bike:
     type: object
@@ -33,14 +31,64 @@ types:
       model: string
       status:
         enum: [available, inUse, maintenance, outOfService]
-      currentStation?: string
+      currentStation: string
       lastMaintenance: datetime
 
-  BikeCreate:
+  BikeUpdate:
     type: object
     properties:
+      model?: string
+      status?:
+        enum: [available, inUse, maintenance, outOfService]
+      currentStation?: string
+
+  Error:
+    type: object
+    properties:
+      code: number
+      message: string#%RAML 1.0 Library
+types:
+  Station:
+    type: object
+    properties:
+      id: string
+      name: string
+      location:
+        type: object
+        properties:
+          latitude: number
+          longitude: number
+      capacity: number
+      availableBikes: number
+      status:
+        enum: [active, maintenance, closed]
+
+  StationUpdate:
+    type: object
+    properties:
+      name?: string
+      capacity?: number
+      availableBikes?: number
+      status?:
+        enum: [active, maintenance, closed]
+
+  Bike:
+    type: object
+    properties:
+      id: string
       model: string
+      status:
+        enum: [available, inUse, maintenance, outOfService]
       currentStation: string
+      lastMaintenance: datetime
+
+  BikeUpdate:
+    type: object
+    properties:
+      model?: string
+      status?:
+        enum: [available, inUse, maintenance, outOfService]
+      currentStation?: string
 
   Error:
     type: object

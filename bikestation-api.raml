@@ -77,6 +77,52 @@ securitySchemes:
               code: 400
               message: "Données invalides"
 
+  /{stationId}:
+    put:
+      description: Met à jour une station existante
+      body:
+        application/json:
+          type: object
+          example:
+            name: "Place de la République Modifiée"
+            capacity: 25
+            availableBikes: 20
+            status: "active"
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              example:
+                id: "station-001"
+                name: "Place de la République Modifiée"
+                location:
+                  latitude: 48.8666
+                  longitude: 2.3633
+                capacity: 25
+                availableBikes: 20
+                status: "active"
+        404:
+          body:
+            application/json:
+              type: object
+              example:
+                code: 404
+                message: "Station non trouvée"
+
+    delete:
+      description: Supprime une station
+      responses:
+        204:
+          description: Station supprimée avec succès
+        404:
+          body:
+            application/json:
+              type: object
+              example:
+                code: 404
+                message: "Station non trouvée"
+
 /bikes:
   description: Gestion des vélos
   get:
@@ -130,3 +176,45 @@ securitySchemes:
             example:
               code: 400
               message: "Données invalides"
+
+  /{bikeId}:
+    put:
+      description: Met à jour le statut d'un vélo
+      body:
+        application/json:
+          type: object
+          example:
+            model: "City Bike V2 Pro"
+            status: "maintenance"
+            currentStation: "station-002"
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              example:
+                id: "bike-001"
+                model: "City Bike V2 Pro"
+                status: "maintenance"
+                currentStation: "station-002"
+                lastMaintenance: "2024-03-15T10:00:00Z"
+        404:
+          body:
+            application/json:
+              type: object
+              example:
+                code: 404
+                message: "Vélo non trouvé"
+
+    delete:
+      description: Supprime un vélo
+      responses:
+        204:
+          description: Vélo supprimé avec succès
+        404:
+          body:
+            application/json:
+              type: object
+              example:
+                code: 404
+                message: "Vélo non trouvé"
