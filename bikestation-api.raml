@@ -1,0 +1,132 @@
+#%RAML 1.0
+title: BikeStation API
+version: v1
+baseUri: http://api.bikestation.com/{version}
+description: API permettant la gestion d'une station de vélos en libre-service
+mediaType: application/json
+
+uses:
+  types: datatypes/types.raml
+  examples: examples/examples.raml
+
+securitySchemes:
+  basic:
+    type: Basic Authentication
+    description: Authentification basique pour l'API
+
+/stations:
+  description: Gestion des stations de vélos
+  get:
+    description: Récupère la liste de toutes les stations
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            items: types.Station
+            example:
+              - id: "station-001"
+                name: "Place de la République"
+                location:
+                  latitude: 48.8666
+                  longitude: 2.3633
+                capacity: 20
+                availableBikes: 15
+                status: "active"
+      404:
+        body:
+          application/json:
+            type: types.Error
+            example: 
+              code: 404
+              message: "Station non trouvée"
+  
+  post:
+    description: Crée une nouvelle station
+    body:
+      application/json:
+        type: types.Station
+        example: 
+          id: "station-001"
+          name: "Place de la République"
+          location:
+            latitude: 48.8666
+            longitude: 2.3633
+          capacity: 20
+          availableBikes: 15
+          status: "active"
+    responses:
+      201:
+        body:
+          application/json:
+            type: types.Station
+            example:
+              id: "station-001"
+              name: "Place de la République"
+              location:
+                latitude: 48.8666
+                longitude: 2.3633
+              capacity: 20
+              availableBikes: 15
+              status: "active"
+      400:
+        body:
+          application/json:
+            type: types.Error
+            example:
+              code: 400
+              message: "Données invalides"
+
+/bikes:
+  description: Gestion des vélos
+  get:
+    description: Récupère la liste de tous les vélos
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            items: types.Bike
+            example:
+              - id: "bike-001"
+                model: "City Bike V2"
+                status: "available"
+                currentStation: "station-001"
+                lastMaintenance: "2024-03-15T10:00:00Z"
+      404:
+        body:
+          application/json:
+            type: types.Error
+            example:
+              code: 404
+              message: "Vélo non trouvé"
+
+  post:
+    description: Ajoute un nouveau vélo
+    body:
+      application/json:
+        type: types.Bike
+        example:
+          id: "bike-001"
+          model: "City Bike V2"
+          status: "available"
+          currentStation: "station-001"
+          lastMaintenance: "2024-03-15T10:00:00Z"
+    responses:
+      201:
+        body:
+          application/json:
+            type: types.Bike
+            example:
+              id: "bike-001"
+              model: "City Bike V2"
+              status: "available"
+              currentStation: "station-001"
+              lastMaintenance: "2024-03-15T10:00:00Z"
+      400:
+        body:
+          application/json:
+            type: types.Error
+            example:
+              code: 400
+              message: "Données invalides"

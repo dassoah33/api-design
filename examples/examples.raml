@@ -1,17 +1,11 @@
 #%RAML 1.0 Library
-examples:
-  stationExample:
-    id: "station-001"
-    name: "Place de la République"
-    location:
-      latitude: 48.8666
-      longitude: 2.3633
-    capacity: 20
-    availableBikes: 15
-    status: "active"
+uses:
+  types: ../datatypes/types.raml
 
-  stationListExample:
-    - id: "station-001"
+types:
+  stationExample:
+    example:
+      id: "station-001"
       name: "Place de la République"
       location:
         latitude: 48.8666
@@ -19,49 +13,35 @@ examples:
       capacity: 20
       availableBikes: 15
       status: "active"
-    - id: "station-002"
-      name: "Bastille"
-      location:
-        latitude: 48.8532
-        longitude: 2.3698
-      capacity: 25
-      availableBikes: 10
-      status: "active"
 
-  stationCreateExample:
-    name: "Nation"
-    location:
-      latitude: 48.8483
-      longitude: 2.3962
-    capacity: 30
+  stationListExample:
+    example:
+      - id: "station-001"
+        name: "Place de la République"
+        location:
+          latitude: 48.8666
+          longitude: 2.3633
+        capacity: 20
+        availableBikes: 15
+        status: "active"
+      - id: "station-002"
+        name: "Bastille"
+        location:
+          latitude: 48.8532
+          longitude: 2.3698
+        capacity: 25
+        availableBikes: 10
+        status: "active"
 
   bikeExample:
-    id: "bike-001"
-    model: "City Bike V2"
-    status: "available"
-    currentStation: "station-001"
-    lastMaintenance: "2024-03-15T10:00:00Z"
-
-  bikeListExample:
-    - id: "bike-001"
+    example:
+      id: "bike-001"
       model: "City Bike V2"
       status: "available"
       currentStation: "station-001"
       lastMaintenance: "2024-03-15T10:00:00Z"
-    - id: "bike-002"
-      model: "City Bike V2"
-      status: "inUse"
-      currentStation: null
-      lastMaintenance: "2024-03-14T15:30:00Z"
-
-  bikeCreateExample:
-    model: "City Bike V2"
-    currentStation: "station-001"
-
-  bikeUpdateExample:
-    status: "maintenance"
-    currentStation: "station-002"
 
   errorExample:
-    code: 404
-    message: "Resource not found"
+    example:
+      code: 404
+      message: "Resource not found"

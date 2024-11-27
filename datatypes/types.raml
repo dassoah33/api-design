@@ -15,10 +15,6 @@ types:
       status:
         enum: [active, maintenance, closed]
 
-  StationList:
-    type: array
-    items: Station
-
   StationCreate:
     type: object
     properties:
@@ -40,22 +36,11 @@ types:
       currentStation?: string
       lastMaintenance: datetime
 
-  BikeList:
-    type: array
-    items: Bike
-
   BikeCreate:
     type: object
     properties:
       model: string
       currentStation: string
-
-  BikeUpdate:
-    type: object
-    properties:
-      status:
-        enum: [available, inUse, maintenance, outOfService]
-      currentStation?: string
 
   Error:
     type: object
