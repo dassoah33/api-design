@@ -1,0 +1,20 @@
+#%RAML 1.0 SecurityScheme
+type: x-custom
+description: Schéma de sécurité personnalisé pour l'API de station de vélos
+describedBy:
+  headers:
+    X-Bike-Token:
+      type: string
+      description: Token d'authentification personnalisé
+  responses:
+    401:
+      description: Token invalide ou manquant
+      body:
+        application/json:
+          type: object
+          properties:
+            code: number
+            message: string
+          example:
+            code: 401
+            message: "Authentication failed: Invalid token"

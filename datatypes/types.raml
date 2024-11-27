@@ -1,0 +1,64 @@
+#%RAML 1.0 Library
+types:
+  Station:
+    type: object
+    properties:
+      id: string
+      name: string
+      location:
+        type: object
+        properties:
+          latitude: number
+          longitude: number
+      capacity: number
+      availableBikes: number
+      status:
+        enum: [active, maintenance, closed]
+
+  StationList:
+    type: array
+    items: Station
+
+  StationCreate:
+    type: object
+    properties:
+      name: string
+      location:
+        type: object
+        properties:
+          latitude: number
+          longitude: number
+      capacity: number
+
+  Bike:
+    type: object
+    properties:
+      id: string
+      model: string
+      status:
+        enum: [available, inUse, maintenance, outOfService]
+      currentStation?: string
+      lastMaintenance: datetime
+
+  BikeList:
+    type: array
+    items: Bike
+
+  BikeCreate:
+    type: object
+    properties:
+      model: string
+      currentStation: string
+
+  BikeUpdate:
+    type: object
+    properties:
+      status:
+        enum: [available, inUse, maintenance, outOfService]
+      currentStation?: string
+
+  Error:
+    type: object
+    properties:
+      code: number
+      message: string

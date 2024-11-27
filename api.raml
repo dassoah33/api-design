@@ -1,0 +1,116 @@
+#%RAML 1.0
+title: API Station de Vélos
+version: v1
+baseUri: http://api.bikestation.com/{version}
+description: API permettant la gestion d'une station de vélos en libre-service
+mediaType: application/json
+
+uses:
+  types: !include datatypes/types.raml
+  examples: !include examples/examples.raml
+  security: !include security/security-scheme.raml
+
+securitySchemes:
+  bikeToken: !include security/bike-token.raml
+
+/stations:
+  description: Gestion des stations de vélos
+  get:
+    description: Récupère la liste de toutes les stations
+    responses:
+      200:
+        body:
+          application/json:
+            type: types.StationList
+            example: examples.stationListExample
+      404:
+        body:
+          application/json:
+            type: types.Error
+            example: examples.errorExample
+  
+  post:
+    description: Crée une nouvelle station
+    body:
+      application/json:
+        type: types.StationCreate
+        example: examples.stationCreateExample
+    responses:
+      201:
+        body:
+          application/json:
+            type: types.Station
+            example: examples.stationExample
+      400:
+        body:
+          application/json:
+            type: types.Error
+            example: examples.errorExample
+
+  /{stationId}:
+    get:
+      description: Récupère les détails d'une station spécifique
+      responses:
+        200:
+          body:
+            application/json:
+              type: types.Station
+              example: examples.stationExample
+        404:
+          body:
+            application/json:
+              type: types.Error
+              example: examples.errorExample
+
+/bikes:
+  description: Gestion des vélos
+  get:
+    description: Récupère la liste de tous les vélos
+    responses:
+      200:
+        body:
+          application/json:
+            type: types.BikeList
+            example: examples.bikeListExample
+      404:
+        body:
+          application/json:
+            type: types.Error
+            example: examples.errorExample
+
+  post:
+    description: Ajoute un nouveau vélo
+    body:
+      application/json:
+        type: types.BikeCreate
+        example: examples.bikeCreateExample
+    responses:
+      201:
+        body:
+          application/json:
+            type: types.Bike
+            example: examples.bikeExample
+      400:
+        body:
+          application/json:
+            type: types.Error
+            example: examples.errorExample
+
+  /{bikeId}:
+    put:
+      description: Met à jour le statut d'un vélo
+      body:
+        application/json:
+          type: types.BikeUpdate
+          example: examples.bikeUpdateExample
+      responses:
+        200:
+          body:
+            application/json:
+              type: types.Bike
+              example: examples.bikeExample
+        404:
+          body:
+            application/json:
+              type: types.Error
+              example: examples.errorExample
